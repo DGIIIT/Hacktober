@@ -1,53 +1,77 @@
 #include <iostream>
-#include <cassert>
+#define N 4
+using namespace std;
 
-// The following code calls a naive algorithm for computing a Fibonacci number.
-//
-// What to do:
-// 1. Compile the following code and run it on an input "40" to check that it is slow.
-//    You may also want to submit it to the grader to ensure that it gets the "time limit exceeded" message.
-// 2. Implement the fibonacci_fast procedure.
-// 3. Remove the line that prints the result of the naive algorithm, comment the lines reading the input,
-//    uncomment the line with a call to test_solution, compile the program, and run it.
-//    This will ensure that your efficient algorithm returns the same as the naive one for small values of n.
-// 4. If test_solution() reveals a bug in your implementation, debug it, fix it, and repeat step 3.
-// 5. Remove the call to test_solution, uncomment the line with a call to fibonacci_fast (and the lines reading the input),
-//    and submit it to the grader.
-
-int fibonacci_naive(int n) {
-    if (n <= 1)
-        return n;
-
-    return fibonacci_naive(n - 1) + fibonacci_naive(n - 2);
-}
-
-int fibonacci_fast(int n) {
-    if (n <= 1)
-        return n;
-
-    int F1, F2, F;
-    F1 = 0;
-    F2 = 1;
-    for (int i = 2; i <= n; i++) {
-        F = F1 + F2;
-        F1 = F2;
-        F2 = F;
+void printSolution(int board[N][N])
+{
+    cout << "\n";
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+            cout << "" << board[i][j];
+        cout << "\n";
     }
-    return F;
 }
 
-void test_solution() {
-    assert(fibonacci_fast(3) == 2);
-    assert(fibonacci_fast(10) == 55);
-    for (int n = 0; n < 20; ++n)
-        assert(fibonacci_fast(n) == fibonacci_naive(n));
+bool isSafe(int board[N][N], int row, int col)
+{
+    int i, j;
+
+    /* Check this row on left side */
+    for (i = 0; i < col; i++)
+        if (board[row][i])
+            return false;
+
+    /* Check upper diagonal on left side */
+    for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
+        if (board[i][j])
+            return false;
+
+    /* Check lower diagonal on left side */
+    for (i = row, j = col; j >= 0 && i < N; i++, j--)
+        if (board[i][j])
+            return false;
+
+    return true;
 }
 
-int main() {
-    int n = 0;
-    std::cin >> n;
+void solveNQ(int board[N][N], int col)
+{
 
-    // test_solution();
-    std::cout << fibonacci_fast(n) << '\n';
+    if (col >= N)
+    {
+        printSolution(board);
+        return;
+    }
+
+    /* Consider this column and try placing
+       this queen in all rows one by one */
+    for (int i = 0; i < N; i++)
+    {
+        /* Check if queen can be placed on
+          board[i][col] */
+        if (isSafe(board, i, col))
+        {
+            /* Place this queen in board[i][col] */
+            //            cout<<"\n"<<col<<"can place"<<i;
+            board[i][col] = 1;
+
+            /* recur to place rest of the queens */
+            solveNQ(board, col + 1);
+
+            board[i][col] = 0; // BACKTRACK
+        }
+    }
+}
+
+int main()
+{
+
+    int board[N][N] = {{0, 0, 0, 0},
+                       {0, 0, 0, 0},
+                       {0, 0, 0, 0},
+                       {0, 0, 0, 0}};
+
+    solveNQ(board, 0);
     return 0;
 }
