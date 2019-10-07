@@ -1,8 +1,9 @@
 /*
 This assignment wishes to send the user(agent) from Arad to Bucharest 
 or from any place in the map to Bucharest in the map of Romania using
-the Greedy Best First Search. The Straight line distance to reach
-Bucharest is the Heuristic Function for this Problem.
+the A* Algorithm Search Technique. The Heuristic Function for this Problem 
+is the sum of the Straight Line Distance of Bucharest from the next state(node)
+and the cost of reaching to that node(distance between the current and next node).
 */
 
 
@@ -85,12 +86,13 @@ int minimum(int arr[][2],int n) //finds the minimum heuristic value from the "Av
 {
 	int mincount=0;
 	int min = 9999;
-	for(int i=0; i<n; i++)
+	int i;
+	for(i=0; i<n; i++)
 	{
 		if(arr[i][1] < min)
 		{
 			min=arr[i][1];
-			mincount=arr[i][0];
+			mincount=i;
 		}
 
 	}
@@ -146,7 +148,7 @@ Loop:
 	visited[initpoint]=1;
 	currpoint=initpoint;
 
-	printf("\nStarting.. Greedy BFS for the Map of Romania!\n\nThe nodes(States) covered in the process will be displayed below ..\n\nSt. line Distance from Bucharest\tState(Node)\n");
+	printf("\nStarting.. Greedy BFS for the Map of Romania!\n\nThe nodes(States) covered in the process will be displayed below ..\n\nCost for visiting next node\t\tCurrent Node(State)\n");
 	while(visited[destpoint]!=1 )
 	{
 		k=0;
@@ -161,8 +163,12 @@ Loop:
 
 		}
 
-		printf("%d\t\t\t\t\t%s\n",dist_bucharest[currpoint],name[currpoint]);
-		minpoint=minimum(availables,k);
+		
+		int indexi=minimum(availables,k);
+		minpoint=availables[indexi][0];
+		if(currpoint==1) printf("NIL\t\t\t\t\t%s\n",name[currpoint]);
+		else printf("%d\t\t\t\t\t%s\n",availables[indexi][1] - dist_bucharest[minpoint],name[currpoint]);
+		
 		visited[currpoint]=1;
 		steps++;
 		currpoint=minpoint;
