@@ -2,7 +2,7 @@
 
 int main()
 {
-printf("For Demo Purpose only")
+printf("HELLO WORLD")
 
 return 0;
 }
