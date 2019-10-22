@@ -1,0 +1,144 @@
+//			Write a C program to implement Circular Doubly linked list.This program must include following functions in it.
+//				a.Write a function to CONSTRUCT a circular doubly linked list.
+//				b.Write a function to INSERT an element at the beginning of the created circular doubly linked list.
+//				c.Write a function to INSERT an element at the end of the circular doubly linked list.
+//				d.Write a function to DELETE an element from the beginning of the circular doubly linked list.
+//				e.Write a function to DELETE an element from the end of the circular doubly linked list.
+//				f.Write a function for "Display" operation which prints the content of the circular doubly linked list.
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+	int data;
+	struct Node *previous;
+	struct Node *next;
+	   }*temp,*head,*newNode;
+
+void construct()
+{
+	head=NULL;
+	printf("Successfully created CIRCULAR DOUBLY LINKED LIST\n");
+}
+
+
+void insertb()
+{
+int value;
+printf("Enter value to be stored:");
+scanf("%d",&value);
+newNode=(struct Node *)malloc(sizeof(struct Node));
+newNode->data = value;
+newNode->previous=NULL;
+	
+	if(head==NULL)
+	{
+	head=newNode;
+	newNode->next=head;
+	}
+	else
+	{
+	newNode->next=head;
+	head=newNode;
+	}
+	printf("Insertion success!");
+}
+	
+void inserte()
+{
+int value;
+printf("Enter value to be stored:");
+scanf("%d",&value);
+newNode=(struct Node *)malloc(sizeof(struct Node));
+newNode->data=value;
+newNode->next=NULL;
+
+	if(head==NULL)
+	{
+	newNode->previous=NULL;
+	head=newNode;
+	}
+	else
+	{
+	temp=(struct Node *)malloc(sizeof(struct Node));
+	temp=head;
+	while(temp->next !=NULL)
+	temp=temp->next;
+	temp->next=newNode;
+	newNode->previous=temp;
+	}
+	printf("Insertion Success!\n");
+}
+
+void deleteb()
+{
+	if(head==NULL)
+	{
+	printf("List is EMPTY!");
+	}
+	else
+	{
+	temp=(struct Node *)malloc(sizeof(struct Node));
+	temp=head;
+	head=head->next;
+	free(temp);
+	}
+	printf("Deletion success!");
+}
+
+void deletee()
+{
+	if(head==NULL)
+	{
+	printf("List is EMPTY!");
+	}
+	else
+	{
+	temp=(struct Node *)malloc(sizeof(struct Node));
+	temp=head->previous;
+	temp->previous->next=head;
+	head->previous=temp->previous;
+	free(temp);
+	}
+	printf("Deletion Success!");
+}
+
+void display()
+{
+	if(head==NULL)
+	printf("EMPTY");
+	else
+	{
+	temp=(struct Node *)malloc(sizeof(struct Node));
+	temp=head;
+		while(temp->next !=NULL)
+		{
+		printf("%d",temp->data);
+		temp=temp->next;
+		}
+	printf("%d",temp->data);
+}
+
+
+void main()
+{
+int c;
+while(1)
+{
+printf("\nDOUBLY LINKED LIST\n");
+printf("1.CONSTRUCT circular doubly linked list\n2.INSERT at beginning\n3.INSERT at end\n4.DELETE from beginning\n5.DELETE from end\n6.DISPLAY\n7.EXIT\n");
+printf("Enter your choice:\t");
+scanf("%d",&c);
+switch(c)
+	{
+	case 1: construct(); break;
+	case 2: insertb();   break;
+	case 3: inserte();   break;
+	case 4: deleteb();   break;
+	case 5: deletee();   break;
+	case 6: display();   break;
+	case 7: exit(0);     break;
+	}
+}
+}}
