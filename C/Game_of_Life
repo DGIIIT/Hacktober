@@ -1,0 +1,197 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+   void header(void);
+   void survivalRule(char [][20], int, int);
+   void birthRule(char [][20], int, int);
+   void deathRule(char [][20], int, int);
+   	
+	int main(void)
+   {
+	  char Life[20][20];
+	  int orgs, gens;
+	  int i, a, b, row, col;
+	  int count = 0;
+	  int x = 19;
+	  int y = 19;
+	  char ans;
+   	
+	  header();
+   
+	  do{
+		 printf("\nPlease enter the number of organisms you would like to live in the first generation: ");
+		 scanf("%i", &orgs);
+	  
+		 srand( (unsigned)time( NULL ) );
+			  
+		 for(i = 0; i<orgs; i++)
+		 {
+			row = rand();
+			row %= 20;
+			col = rand();
+			col %= 20;
+			Life[row][col] == '*';
+		 }
+		 
+		 for(row = 0; row<20; row++)
+		 {
+			for(col = 0; col<20; col++)
+			{
+			   if(Life[row][col] != '*')
+			   	Life[row][col] == ' ';
+			}
+		 }
+			  
+		 printf("\nNow enter the number of generations you would like to simulate: ");
+		 scanf("%i", &gens);
+			  
+		 for(row = 0; row<20; row++)
+		 {
+			  for(col = 0; col<20; col++)
+			  {
+				  printf("%s", Life[row][col]);
+			  }
+			  puts(" ");
+		  }
+			 
+		 do{				
+			birthRule(Life, x, y);
+			survivalRule(Life, x, y);
+			deathRule(Life, x, y);
+				for(row = 0; row<20; row++)
+		 	{
+				  for(col = 0; col<20; col++)
+				  {
+					  printf("%s", Life[row][col]);
+				  }
+				  puts(" ");
+		 	}
+			count++;
+		 }while(count<gens);
+		  
+		 printf("Would you like to simulate another generation? y or n:\n");
+		  
+		 scanf("%c", &ans);
+			  
+	  }while( ans != 'n' && ans != 'N');
+   	
+	  return 0;
+   }
+			
+				
+	void header(void) /*function for program header*/
+   {
+	  printf("\n\t..Welcome to the Game of Life..\n");
+	  printf("Follow the instructions to start your own simulation of life!\n\n");
+   }
+	
+	void survivalRule(char Life[][20], int x, int y)
+   {
+	  int row, col;
+	  int neighbors = 0;
+	  for(row = 1; row<19; row++)
+	  {
+		 for(col = 1; col<19; col++)
+		 {
+			if(Life[row][col] == '*')
+			{
+			   if(Life[row - 1][col - 1] == '*')
+				  ++neighbors;
+			   if(Life[row - 1][col] == '*')
+				  ++neighbors;
+			   if(Life[row - 1][col + 1] == '*')
+				  ++neighbors;
+			   if(Life[row][col - 1] == '*')
+				  ++neighbors;
+			   if(Life[row][col + 1] == '*')
+				  ++neighbors;
+			   if(Life[row + 1][col - 1] == '*')
+				  ++neighbors;
+			   if(Life[row + 1][col] == '*')
+				  ++neighbors;
+			   if(Life[row + 1][col + 1] == '*')
+				  ++neighbors;
+			   if(neighbors == 2 || neighbors == 3)
+			   {
+				  Life[row][col] == '*';
+			   }
+			}
+		 }
+	  }
+	  return;
+   }
+	
+	void birthRule(char Life[][20], int x, int y)
+   {
+	  int row, col;
+	  int neighbors = 0;
+	  for(row = 1; row<19; row++)
+	  {
+		 for(col = 1; col<19; col++)
+		 {
+			if(&Life[row][col]== " ")
+			{
+			   if(Life[row - 1][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row - 1][col] == '*')
+				  neighbors++;
+			   if(Life[row - 1][col + 1] == '*')
+				  neighbors++;
+			   if(Life[row][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row][col + 1] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col + 1] == '*')
+				  neighbors++;
+			   if(neighbors == 3)
+			   {
+			   	Life[row][col] == '*';
+			   }
+			}
+		 }
+	  }
+   
+	  return;
+   }
+	
+	void deathRule(char Life[][20], int x, int y)
+   {
+	  int row, col;
+	  int neighbors = 0;
+	  for(row = 1; row<19; row++)
+	  {
+		 for(col = 1; col<19; col++)
+		 {
+			if(Life[row][col] == '*')
+			{
+			   if(Life[row - 1][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row - 1][col] == '*')
+				  neighbors++;
+			   if(Life[row - 1][col + 1] == '*')
+				  neighbors++;
+			   if(Life[row][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row][col + 1] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col - 1] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col] == '*')
+				  neighbors++;
+			   if(Life[row + 1][col + 1] == '*')
+				  neighbors++;
+			   if(neighbors < 2 || neighbors > 4)
+			   {
+				  Life[row][col] == ' ';
+			   }
+			}
+		 }
+	  }
+	  return;
+   }
+
+
