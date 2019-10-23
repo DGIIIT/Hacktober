@@ -40,3 +40,5 @@ The goal of this repo is to help beginners who are doing their first pull reques
 
 Make sure [git](https://git-scm.com/book/id/v2/Getting-Started-Installing-Git) is installed.
 for remote git you should configure your ssh fingerprint.
+
+>> **Author**: Saichethan M. Reddy
