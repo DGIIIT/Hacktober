@@ -1,0 +1,11 @@
+#include<iostream>
+using namespace std ;
+int main()
+{
+  float number1,number2,average;
+  cout << "Enter the number to find Average." ;
+  cout << "\n1st Number = "	; cin >> number1 ;
+  cout << "2nd Number = " ; cin >> number2 ;
+	average=(number1+number2)/2 ;
+  cout << "Average    = " << average ;
+}
