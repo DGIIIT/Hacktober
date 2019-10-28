@@ -1,0 +1,30 @@
+#include <cstdlib>
+#include <iostream>
+/*for positives*/
+using namespace std;
+int CountDel (int a)
+{
+  int count=0;
+  for (int i=1;i<a+1;i++)
+  {if (a%i==0)
+  {count++;}
+  }
+  return count;
+}
+int main(int argc, char *argv[])
+{  int x;
+   int a[100];
+   int n=0;
+   int b;
+   cin >> b;
+   while (b!=0)
+   { a[n]=b;
+     n++;
+    cin >> b;
+      }
+  for (int i=1;i<n;i++) 
+    {
+    cout <<a[i]<<" ==>"<<CountDel(a[i])<<"\n";}
+    system("PAUSE");
+    return EXIT_SUCCESS;
+}
