@@ -1,0 +1,155 @@
+//			Write a C program to implement Doubly linked list(one-way).This program must include following functions in it.
+//				a.Write a function to CONSTRUCT a doubly linked list.
+//				b.Write a function to INSERT an element at the beginning of the created doubly linked list(step a).
+//				c.Write a function to INSERT an element at the end of the doubly linked list.
+//				d.Write a function to DELETE an element from the beginning of the doubly linked list.
+//				e.Write a function to DELETE an element from the end of the doubly linked list.
+//				f.Write a function for "Display" operation which prints the content of the doubly linked list.
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int value;
+struct Node
+{
+   int data;
+   struct Node *previous; 
+   struct Node *next;
+}*head=NULL,*temp;
+
+void construct()
+{
+	temp =(struct Node *)malloc(sizeof(struct Node));
+	temp->previous = NULL;
+	temp->next = NULL;
+	printf("Successfully created a doubly linked list\n");
+}
+
+void insertb()
+{
+	printf("Enter value to be inserted:");
+	scanf("%d",&value);
+	struct Node *newNode;
+	newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode -> data = value;
+	newNode -> previous = NULL;
+	if(head == NULL)
+		{
+		newNode -> next = NULL;
+		head = newNode;
+		}
+	else
+		{
+		newNode -> next = head;
+		head = newNode;
+
+		}
+    printf("\nInsertion success!!!");
+}
+
+void inserte()
+{
+
+	printf("Enter value to be inserted:");
+	scanf("%d",&value);
+	struct Node *newNode;
+	newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode -> data = value;
+	newNode -> next = NULL;
+	if(head == NULL)
+		{
+		newNode -> previous = NULL;
+		head = newNode;
+		}
+	else
+		{ 
+		struct Node *temp = head;
+		while(temp -> next != NULL)
+		temp = temp -> next;
+		temp -> next = newNode;
+		newNode -> previous = temp;
+		}
+   printf("\nInsertion success!!!");   
+}
+
+void deleteb()
+{
+   if(head == NULL)
+      printf("List is Empty!!! Deletion not possible!!!");
+   else
+   {
+      struct Node *temp = head;
+      if(temp -> previous == temp -> next)
+      {
+         head = NULL;
+         free(temp);
+      }
+      else{
+         head = temp -> next;
+         head -> previous = NULL;
+         free(temp);
+      }
+      printf("\nDeletion success!!!");
+   }
+}
+
+void deletee()
+{
+   if(head == NULL)
+      printf("List is Empty!!! Deletion not possible!!!");
+   else
+   {
+      struct Node *temp = head;
+      if(temp -> previous == temp -> next)
+      {
+         head = NULL;
+         free(temp);
+      }
+      else{
+         while(temp -> next != NULL)
+            temp = temp -> next;
+         temp -> previous -> next = NULL;
+         free(temp);
+      }
+      printf("\nDeletion success!!!");
+   }
+}
+
+void display()
+{
+
+   if(head == NULL)
+      printf("\nList is Empty!!!");
+   else
+   {
+      struct Node *temp = head;
+      printf("\nList elements are: \n");
+      while(temp -> next != NULL)
+      {
+         printf("%d\n",temp -> data); temp=temp->next;
+      }
+         printf("%d\n",temp -> data);
+   }
+}
+
+void main()
+{
+int c;
+while(1)
+{
+printf("\nDOUBLY LINKED LIST\n");
+printf("1.CONSTRUCT doubly linked list\n2.INSERT at beginning\n3.INSERT at end\n4.DELETE from beginning\n5.DELETE from end\n6.DISPLAY\n7.EXIT\n");
+printf("Enter your choice:\t");
+scanf("%d",&c);
+switch(c)
+	{
+	case 1: construct(); break;
+	case 2: insertb();   break;
+	case 3: inserte();   break;
+	case 4: deleteb();   break;
+	case 5: deletee();   break;
+	case 6: display();   break;
+	case 7: exit(0);     break;
+	}
+}
+}
