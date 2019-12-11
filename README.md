@@ -1,6 +1,8 @@
 # Hacktoberfest 2019!
 The goal of this repo is to help beginners who are doing their first pull requests. Feel free to join!
 
+## Past contributors
+[2019 Hacktoberfest participants](https://github.com/DGIIIT/Hacktober/wiki/2019-Hactober-Participants)
 
 ## Contributing guidelines
   - [code of conduct](https://dgiiit.github.io/conduct.html)
