@@ -1,4 +1,4 @@
-# Hacktoberfest 2019!
+# Hacktoberfest 2020!
 The goal of this repo is to help beginners who are doing their first pull requests. Feel free to join!
 
 ## Past contributors
