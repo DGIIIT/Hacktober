@@ -1,1 +1,1 @@
-This assignment wishes to send the user from Arad to Bucharest in the map of Romania using the Greedy Best First Search with the Straight line distance to reach Bucharest as the Heuristic Function for the Problem.
+This assignment wishes to send the user from ARAD to BUCHAREST in the map of Romania using the Greedy Best First Search with the Straight line distance to reach BUCHAREST as the Heuristic Function for the Problem.
