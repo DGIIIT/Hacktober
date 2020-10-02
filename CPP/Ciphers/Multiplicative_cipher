@@ -1,0 +1,74 @@
+//Multiplicative Cipher
+#include<iostream>
+#include<string.h>
+#include<stdlib.h>
+using namespace std;
+string encrypt(string text, int key) {
+    string result = "";
+    for (int i = 0; i < text.length(); i++)
+    {
+    	if (isupper(text[i])) 
+		result +=(char) (((key * (text[i]-65)) % 26) + 65);
+	else
+		result +=(char) (((key * (text[i]-97)) % 26) + 97);	
+    }
+    return result;
+}
+ 
+string decrypt(string text, int key) {
+    string result= "";
+    int a_inv = 0;
+    int flag = 0;
+    for (int i = 0; i < 26; i++)
+    {
+        flag = (key * i) % 26;
+        if (flag == 1)
+        {
+            a_inv = i;
+        }
+    }
+    for (int i = 0; i < text.length(); i++)
+    {
+    	if (isupper(text[i])) 
+        	result += (char) (((a_inv * (text[i]-65)) % 26) + 65);
+        else
+        	result += (char) (((a_inv * (text[i]-97)) % 26) + 97);	
+    }
+    return result;
+}
+int main()
+{
+	string text=""; 
+	int key = 0, sel=0;
+	char ch='y'; 
+	cout<<"===MULTIPLICATIVE CIPHER==="<<endl;
+	do {
+		cout<<"\nMenu\n1.Encrypt\n2.Decrypt\n";
+		cout << "Enter the input : ";
+		cin>>sel;
+		switch(sel) {
+			case 1:
+				cout << "Enter the text : ";
+				cin.ignore();
+				getline(cin,text); 	
+				cout<< "Enter the key : ";
+				cin>>key;
+				cout << "Encrypted Text is(Cipher Text) : " << encrypt(text, key)<<endl;
+				break;
+			case 2:
+				cout << "Enter the text : ";
+				cin.ignore();
+				getline(cin,text); 
+				cout<< "Enter the key : ";
+				cin>>key;
+				cout << "Decrypted Text is(Plain Text) : " << decrypt(text, key)<<endl;
+				break;
+			default:
+				cout<<"Enter the correct option";
+				break;
+			}
+			cout<<"If you wish to exit press n else press any key: ";
+			cin>>ch;
+		}while(ch!='n');
+	return 0;
+}
