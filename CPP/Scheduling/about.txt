@@ -1,1 +1,0 @@
-It is about First Come First Serve Process scheduling algorithm.
