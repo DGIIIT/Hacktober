@@ -1,0 +1,223 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+int max=5,count;
+struct student
+{
+	char usn[10];
+	char name[20];
+	char branch[32];
+	char phno[10];
+	int sem;	
+	struct student*next;	
+};
+typedef struct student node;
+int countnodes(node*head)
+{
+	node*p;
+	count=0;
+	p=head;
+	while(p!=NULL)
+	{
+		p=p->next;
+		count++;
+	}
+	return count;
+}
+node*getnode()
+{
+	node*newnode;
+	newnode=(node*)malloc(sizeof(node));
+	printf("enter usn,name,branch,phno,sem\n");
+	scanf("%s",&(newnode->usn));
+	scanf("%s",&(newnode->name ));
+	scanf("%s",&(newnode->branch));
+	scanf("%s",&(newnode->phno));
+	scanf("%d",&(newnode->sem));
+	newnode->next=NULL;
+	return newnode;
+}
+node*display(node*head)
+{
+	node*p;
+	if(head==NULL)
+	printf("no list to display\n");
+	else
+	{
+		p=head;
+		printf("student database\n");
+		printf("USN\t NAME\t BRANCH\t PHNO\t SEM\n");
+		while(p!=NULL)
+		{
+			printf("%s\t%s\t%s\t%s\t%d\n",p->usn,p->name,p->branch,p->phno,p->sem);
+			p=p->next;
+		}
+		printf("the total no, of nodes in the list is %d",countnodes(head));
+	}
+	return head;
+}
+node*create(node*head)
+{
+	node*newnode;
+	if(head==NULL)
+	{
+		newnode=getnode();
+		head=newnode;
+	}
+	else
+	{	
+		newnode=getnode();
+		newnode->next=head;
+		head=newnode;
+	}
+	return head;
+}
+node*insertfront(node*head)
+{
+	if(countnodes(head)==max)
+	printf("list is full\n");
+	else
+	head=create(head);
+	return head;
+}
+node*insertrear(node*head)
+{
+	node*p,*newnode;
+	p=head;
+	if(countnodes(head)==max)
+	{
+		printf("list is full\n");
+	}
+	else
+	{
+			newnode=getnode();
+			while(p->next!=NULL)
+			{
+				p=p->next;
+			}
+			p->next=newnode;
+	}
+	return head;
+}
+node*insert(node*head)
+{
+	int ch;
+	do
+	{
+		printf("1.insert front\t 2.insertrear\t 3.exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:head=insertfront(head);
+					break;
+			case 2:head=insertrear(head);
+					break;
+			case 3:break;
+		}
+		head=display(head);
+	}while(ch!=3);
+	return head;
+}
+node*deletefront(node*head)
+{
+	node*p;
+	if(head==NULL)
+	printf("no node to delete\n");
+	else
+	{
+		p=head;
+		head=head->next;
+		free(p);
+		printf("front node is deleted\n");
+	}
+	return head;
+}
+node*deleterear(node*head)
+{
+	node*p,*q;
+		p=head;
+		while((p->next)->next!=NULL)
+		{
+			p=p->next;
+		}
+		q=p->next;
+		free(q);
+		p->next=NULL;
+	printf("last node is deleted\n");
+	return head;
+}
+node*idelete(node*head)
+{
+	int ch;
+	do
+	{
+		printf("1.deletefront\t 2. deleterear\t 3. exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:head=deletefront(head);
+					break;
+			case 2:head=deleterear(head);
+					break;
+			case 3:break;
+		}
+		head=display(head);
+	}while(ch!=3);
+	return head;
+}
+node*stack(node*head)
+{
+	int ch;
+	do
+	{
+		printf("1.insert front\t 2. delete front\t 3. exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:head=insertfront(head);
+					break;
+			case 2:head=deleterear(head);
+					break;
+			case 3:break;
+		}
+		head=display(head);
+	}while(ch!=3);
+	return head;
+}
+main()
+{
+	node*head;
+	head==NULL;
+	int ch,i,n;
+	while(1)
+	{
+		printf("1.create\t 2.insert\t 3.delete\t 4.stack\t 5.display\t 6.exit\n");
+		printf("enter your choice:\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:printf("enter no. of students\n");
+					scanf("%d",&n);
+					for(i=0;i<n;i++)
+					{
+						head=create(head);
+					}
+					break;
+			case 2:head=insert(head);
+					break;
+			case 3:head=idelete(head);
+					break;
+			case 4:head=stack(head);
+					break;
+			case 5:head=display(head);
+					break;
+			case 6:exit(0);
+					break;
+		}
+		
+	}
+}
+
